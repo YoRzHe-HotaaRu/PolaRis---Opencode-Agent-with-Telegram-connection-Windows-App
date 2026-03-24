@@ -27,11 +27,9 @@ Before using PolaRis, ensure the following are installed:
 
 ## Installation
 
-### From Release
+### Pre-built Executable (No Build Required)
 
-1. Download the latest release from the [Releases](../../releases) page
-2. Extract the archive
-3. Run `PolaRis.exe`
+Download [PolaRis.exe](release/PolaRis.exe) directly from the `release` folder — no build needed.
 
 ### Build from Source
 
