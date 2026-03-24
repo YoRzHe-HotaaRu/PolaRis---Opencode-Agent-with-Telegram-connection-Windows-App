@@ -1,0 +1,110 @@
+<UserControl x:Class="PolaRis.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Foreground="{StaticResource TextPrimaryBrush}">
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="Settings" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,24"/>
+
+        <!-- Settings Content -->
+        <StackPanel Grid.Row="1" MaxWidth="600">
+
+            <!-- Port Setting -->
+            <Border Background="{StaticResource BgCardBrush}" CornerRadius="{StaticResource CardCornerRadius}" BorderThickness="1" BorderBrush="#3A3A5A" Padding="24" Margin="0,0,0,16">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="120"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Server Port" FontSize="15" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Port number for the Opencode server" FontSize="12"
+                               Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
+
+                    <TextBox Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"
+                             Text="{Binding OpencodePort, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource DarkTextBox}" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+
+            <!-- Auto Start Setting -->
+            <Border Background="{StaticResource BgCardBrush}" CornerRadius="{StaticResource CardCornerRadius}" BorderThickness="1" BorderBrush="#3A3A5A" Padding="24" Margin="0,0,0,16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Auto Start with Windows" FontSize="15" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Automatically launch PolaRis when Windows starts" FontSize="12"
+                               Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
+
+                    <CheckBox Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"
+                              IsChecked="{Binding AutoStartEnabled}"
+                              Style="{StaticResource DarkToggle}" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+
+            <!-- Minimize to Tray Setting -->
+            <Border Background="{StaticResource BgCardBrush}" CornerRadius="{StaticResource CardCornerRadius}" BorderThickness="1" BorderBrush="#3A3A5A" Padding="24" Margin="0,0,0,16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Minimize to Tray" FontSize="15" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Close button minimizes to system tray instead of exiting" FontSize="12"
+                               Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
+
+                    <CheckBox Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"
+                              IsChecked="{Binding MinimizeToTray}"
+                              Style="{StaticResource DarkToggle}" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+
+            <!-- Service Controls -->
+            <Border Background="{StaticResource BgCardBrush}" CornerRadius="{StaticResource CardCornerRadius}" BorderThickness="1" BorderBrush="#3A3A5A" Padding="24" Margin="0,0,0,16">
+                <Grid>
+                    <TextBlock Text="Service Controls" FontSize="15" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Button Content="Start All" Style="{StaticResource AccentButton}"
+                                Command="{Binding StartAllCommand}" Padding="14,8" Margin="0,0,8,0"/>
+                        <Button Content="Stop All" Style="{StaticResource DangerButton}"
+                                Command="{Binding StopAllCommand}" Padding="14,8"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- About -->
+            <Border Background="{StaticResource BgCardBrush}" CornerRadius="{StaticResource CardCornerRadius}" BorderThickness="1" BorderBrush="#3A3A5A" Padding="24">
+                <StackPanel>
+                    <TextBlock Text="PolaRis" FontSize="15" FontWeight="SemiBold"/>
+                    <TextBlock Text="Opencode + Telegram Bot Manager" FontSize="12"
+                               Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
+                    <TextBlock Text="Version 1.0.0" FontSize="11"
+                               Foreground="{StaticResource TextMutedBrush}" Margin="0,2,0,0"/>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

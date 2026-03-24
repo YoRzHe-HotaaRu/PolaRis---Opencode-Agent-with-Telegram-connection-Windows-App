@@ -1,0 +1,48 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <LinearGradientBrush x:Key="LogoGrad" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#F8A4C8" Offset="0"/>
+        <GradientStop Color="#A855F7" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="LogoGradR" StartPoint="1,0" EndPoint="0,1">
+        <GradientStop Color="#A855F7" Offset="0"/>
+        <GradientStop Color="#F8A4C8" Offset="1"/>
+    </LinearGradientBrush>
+
+    <Pen x:Key="LogoPen" Brush="{StaticResource LogoGrad}" Thickness="2.5" LineJoin="Round"/>
+    <Pen x:Key="LogoPenThin" Brush="{StaticResource LogoGrad}" Thickness="1.5" LineJoin="Round"/>
+
+    <DrawingImage x:Key="PolaRisLogo">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <!-- Outer ring -->
+                <GeometryDrawing Brush="Transparent" Pen="{StaticResource LogoPen}">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry Center="32,32" RadiusX="28" RadiusY="28"/>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <!-- Star -->
+                <GeometryDrawing Brush="{StaticResource LogoGradR}">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry Figures="M32,18 L35,28 L45,28 L37,34 L40,44 L32,38 L24,44 L27,34 L19,28 L29,28 Z"/>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <!-- Core ring -->
+                <GeometryDrawing Brush="#1E1E2E" Pen="{StaticResource LogoPenThin}">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry Center="32,32" RadiusX="4" RadiusY="4"/>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <!-- Core dot -->
+                <GeometryDrawing Brush="{StaticResource LogoGrad}">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry Center="32,32" RadiusX="1.5" RadiusY="1.5"/>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>

@@ -1,0 +1,365 @@
+<UserControl x:Class="PolaRis.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:PolaRis.ViewModels"
+             Foreground="{StaticResource TextPrimaryBrush}">
+
+    <UserControl.Resources>
+        <Style x:Key="LogTextBlock" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource MonoFontFamily}"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Foreground" Value="#A0D0A0"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="0,1"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Status Cards -->
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Opencode Server Card -->
+            <Border Grid.Column="0" Background="{StaticResource BgCardBrush}" CornerRadius="{StaticResource CardCornerRadius}"
+                    BorderThickness="1" BorderBrush="#3A3A5A" Padding="24">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="20" ShadowDepth="2" Opacity="0.3" Color="Black"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Ellipse Width="12" Height="12" Margin="0,0,12,0">
+                                <Ellipse.Style>
+                                    <Style TargetType="Ellipse">
+                                        <Setter Property="Fill" Value="{StaticResource StatusStoppedBrush}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding OpencodeInfo.Status}" Value="Running">
+                                                <Setter Property="Fill" Value="{StaticResource StatusRunningBrush}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding OpencodeInfo.Status}" Value="Starting">
+                                                <Setter Property="Fill" Value="{StaticResource StatusStartingBrush}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding OpencodeInfo.Status}" Value="Error">
+                                                <Setter Property="Fill" Value="{StaticResource StatusErrorBrush}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Ellipse.Style>
+                            </Ellipse>
+                            <TextBlock Text="Opencode Server" FontSize="16" FontWeight="SemiBold"/>
+                        </StackPanel>
+                        <Button Content="Restart" Style="{StaticResource AccentButton}"
+                                Command="{Binding RestartOpencodeCommand}" Padding="12,6"
+                                HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <StackPanel Grid.Row="1" Margin="0,16,0,0">
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Status:" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,8,0"/>
+                            <TextBlock Grid.Column="1" Text="{Binding OpencodeInfo.StatusText}">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="{StaticResource TextMutedBrush}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding OpencodeInfo.Status}" Value="Running">
+                                                <Setter Property="Foreground" Value="{StaticResource StatusRunningBrush}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding OpencodeInfo.Status}" Value="Starting">
+                                                <Setter Property="Foreground" Value="{StaticResource StatusStartingBrush}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding OpencodeInfo.Status}" Value="Error">
+                                                <Setter Property="Foreground" Value="{StaticResource StatusErrorBrush}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Port:" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,8,0"/>
+                            <TextBlock Grid.Column="1" Text="{Binding OpencodePort, StringFormat={}{0}}"
+                                       Foreground="{StaticResource TextPrimaryBrush}"/>
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Uptime:" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,8,0"/>
+                            <TextBlock Grid.Column="1" Text="{Binding OpencodeInfo.Uptime}"
+                                       Foreground="{StaticResource TextPrimaryBrush}"/>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Telegram Bot Card -->
+            <Border Grid.Column="2" Background="{StaticResource BgCardBrush}" CornerRadius="{StaticResource CardCornerRadius}"
+                    BorderThickness="1" BorderBrush="#3A3A5A" Padding="24">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="20" ShadowDepth="2" Opacity="0.3" Color="Black"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Ellipse Width="12" Height="12" Margin="0,0,12,0">
+                                <Ellipse.Style>
+                                    <Style TargetType="Ellipse">
+                                        <Setter Property="Fill" Value="{StaticResource StatusStoppedBrush}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding TelegramInfo.Status}" Value="Running">
+                                                <Setter Property="Fill" Value="{StaticResource StatusRunningBrush}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding TelegramInfo.Status}" Value="Starting">
+                                                <Setter Property="Fill" Value="{StaticResource StatusStartingBrush}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding TelegramInfo.Status}" Value="Error">
+                                                <Setter Property="Fill" Value="{StaticResource StatusErrorBrush}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Ellipse.Style>
+                            </Ellipse>
+                            <TextBlock Text="Telegram Bot" FontSize="16" FontWeight="SemiBold"/>
+                        </StackPanel>
+                        <Button Content="Restart" Style="{StaticResource AccentButton}"
+                                Command="{Binding RestartTelegramCommand}" Padding="12,6"
+                                HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <StackPanel Grid.Row="1" Margin="0,16,0,0">
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Bot Name:" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,8,0"/>
+                            <TextBlock Grid.Column="1" Text="{Binding TelegramBotName}"
+                                       Foreground="{StaticResource TextPrimaryBrush}"/>
+                        </Grid>
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Status:" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,8,0"/>
+                            <TextBlock Grid.Column="1" Text="{Binding TelegramInfo.StatusText}">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="{StaticResource TextMutedBrush}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding TelegramInfo.Status}" Value="Running">
+                                                <Setter Property="Foreground" Value="{StaticResource StatusRunningBrush}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding TelegramInfo.Status}" Value="Starting">
+                                                <Setter Property="Foreground" Value="{StaticResource StatusStartingBrush}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding TelegramInfo.Status}" Value="Error">
+                                                <Setter Property="Foreground" Value="{StaticResource StatusErrorBrush}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Uptime:" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,8,0"/>
+                            <TextBlock Grid.Column="1" Text="{Binding TelegramInfo.Uptime}"
+                                       Foreground="{StaticResource TextPrimaryBrush}"/>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Log Panels -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Opencode Logs -->
+            <Border Grid.Column="0" Background="{StaticResource BgDarkestBrush}" CornerRadius="{StaticResource CardCornerRadius}"
+                    BorderThickness="1" BorderBrush="#2A2A4A">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="16,12,16,8">
+                        <TextBlock Text="Opencode Server Logs" FontSize="13" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <Button Content="Clear" Style="{StaticResource SecondaryButton}"
+                                Command="{Binding ClearOpencodeLogsCommand}" Padding="10,4"
+                                HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="11"/>
+                    </Grid>
+
+                    <ListBox Grid.Row="1" ItemsSource="{Binding OpencodeLogs}"
+                             Background="Transparent" BorderThickness="0"
+                             Margin="16,0,16,12">
+                        <ListBox.Template>
+                            <ControlTemplate TargetType="ListBox">
+                                <Border Background="{TemplateBinding Background}" CornerRadius="0">
+                                    <ScrollViewer Focusable="False" Padding="{TemplateBinding Padding}">
+                                        <ScrollViewer.Template>
+                                            <ControlTemplate TargetType="ScrollViewer">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition Width="8"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <ScrollContentPresenter Grid.Column="0" Margin="0"/>
+                                                    <Track x:Name="PART_Track" Grid.Column="1"
+                                                           IsDirectionReversed="True"
+                                                           Visibility="{Binding Path=ComputedVerticalScrollBarVisibility, RelativeSource={RelativeSource TemplatedParent}}">
+                                                        <Track.DecreaseRepeatButton>
+                                                            <RepeatButton Command="ScrollBar.PageUpCommand" Style="{StaticResource DarkScrollButton}"/>
+                                                        </Track.DecreaseRepeatButton>
+                                                        <Track.Thumb>
+                                                            <Thumb Style="{StaticResource DarkScrollThumb}"/>
+                                                        </Track.Thumb>
+                                                        <Track.IncreaseRepeatButton>
+                                                            <RepeatButton Command="ScrollBar.PageDownCommand" Style="{StaticResource DarkScrollButton}"/>
+                                                        </Track.IncreaseRepeatButton>
+                                                    </Track>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </ScrollViewer.Template>
+                                        <ItemsPresenter/>
+                                    </ScrollViewer>
+                                </Border>
+                            </ControlTemplate>
+                        </ListBox.Template>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <ContentPresenter Margin="0,1"/>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" FontFamily="{StaticResource MonoFontFamily}"
+                                           FontSize="11" Foreground="#A0D0A0" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+
+            <!-- Telegram Logs -->
+            <Border Grid.Column="2" Background="{StaticResource BgDarkestBrush}" CornerRadius="{StaticResource CardCornerRadius}"
+                    BorderThickness="1" BorderBrush="#2A2A4A">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="16,12,16,8">
+                        <TextBlock Text="Telegram Bot Logs" FontSize="13" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <Button Content="Clear" Style="{StaticResource SecondaryButton}"
+                                Command="{Binding ClearTelegramLogsCommand}" Padding="10,4"
+                                HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="11"/>
+                    </Grid>
+
+                    <ListBox Grid.Row="1" ItemsSource="{Binding TelegramLogs}"
+                             Background="Transparent" BorderThickness="0"
+                             Margin="16,0,16,12">
+                        <ListBox.Template>
+                            <ControlTemplate TargetType="ListBox">
+                                <Border Background="{TemplateBinding Background}" CornerRadius="0">
+                                    <ScrollViewer Focusable="False" Padding="{TemplateBinding Padding}">
+                                        <ScrollViewer.Template>
+                                            <ControlTemplate TargetType="ScrollViewer">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition Width="8"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <ScrollContentPresenter Grid.Column="0" Margin="0"/>
+                                                    <Track x:Name="PART_Track" Grid.Column="1"
+                                                           IsDirectionReversed="True"
+                                                           Visibility="{Binding Path=ComputedVerticalScrollBarVisibility, RelativeSource={RelativeSource TemplatedParent}}">
+                                                        <Track.DecreaseRepeatButton>
+                                                            <RepeatButton Command="ScrollBar.PageUpCommand" Style="{StaticResource DarkScrollButton}"/>
+                                                        </Track.DecreaseRepeatButton>
+                                                        <Track.Thumb>
+                                                            <Thumb Style="{StaticResource DarkScrollThumb}"/>
+                                                        </Track.Thumb>
+                                                        <Track.IncreaseRepeatButton>
+                                                            <RepeatButton Command="ScrollBar.PageDownCommand" Style="{StaticResource DarkScrollButton}"/>
+                                                        </Track.IncreaseRepeatButton>
+                                                    </Track>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </ScrollViewer.Template>
+                                        <ItemsPresenter/>
+                                    </ScrollViewer>
+                                </Border>
+                            </ControlTemplate>
+                        </ListBox.Template>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <ContentPresenter Margin="0,1"/>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" FontFamily="{StaticResource MonoFontFamily}"
+                                           FontSize="11" Foreground="#A0B0D0" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>
