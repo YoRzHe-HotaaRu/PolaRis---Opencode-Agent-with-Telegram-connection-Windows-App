@@ -2,7 +2,9 @@
 
 A modern Windows desktop app for managing [Opencode](https://opencode.ai/) server and [Opencode Telegram Bot](https://github.com/grinev/opencode-telegram-bot) from a single interface.
 
-![PolaRis](PolaRis/Resources/Icons/logo.svg)
+<p align="center">
+  <img src="PolaRis/Resources/Icons/logo.svg" alt="PolaRis" width="248">
+</p>
 
 ## Features
 
