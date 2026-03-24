@@ -27,20 +27,16 @@ Before using PolaRis, ensure the following are installed:
 
 ## Installation
 
-### Pre-built Executable (No Build Required)
-
-Download [PolaRis.exe](release/PolaRis.exe) directly from the `release` folder — no build needed.
-
 ### Build from Source
 
 ```bash
 git clone https://github.com/YoRzHe-HotaaRu/PolaRis---Opencode-Agent-with-Telegram-connection-Windows-App.git
-cd PolaRis
+cd PolaRis---Opencode-Agent-with-Telegram-connection-Windows-App
 dotnet restore
 dotnet build --configuration Release
 ```
 
-The built executable will be at:
+Then run the built executable:
 
 ```
 PolaRis\bin\Release\net8.0-windows\PolaRis.exe

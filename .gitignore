@@ -10,10 +10,6 @@ obj/
 *.userosscache
 *.sln.docstates
 
-## Allow release folder exe
-!release/
-!release/*.exe
-
 ## NuGet
 **/[Pp]ackages/*
 !**/[Pp]ackages/build/
@@ -45,7 +41,7 @@ artifacts/
 
 ## Build results
 [Dd]ebug/
-bin/[Rr]elease/
+[Rr]elease/
 x64/
 x86/
 [Ww][Ii][Nn]32/
