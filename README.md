@@ -15,6 +15,12 @@ A modern Windows desktop app for managing [Opencode](https://opencode.ai/) serve
 - **Auto Start** — Optionally launch with Windows on startup
 - **Dark Theme** — Modern dark UI with gradient accents
 
+## Screenshots
+
+| Dashboard | Settings |
+|-----------|----------|
+| ![Dashboard](screenshot/Dashboard.jpg) | ![Settings](screenshot/Settings.jpg) |
+
 ## Prerequisites
 
 Before using PolaRis, ensure the following are installed:
