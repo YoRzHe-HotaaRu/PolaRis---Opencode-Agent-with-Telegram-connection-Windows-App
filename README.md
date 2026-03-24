@@ -34,7 +34,7 @@ Before using PolaRis, ensure the following are installed:
 ### Build from Source
 
 ```bash
-git clone https://github.com/yourusername/PolaRis.git
+git clone https://github.com/YoRzHe-HotaaRu/PolaRis---Opencode-Agent-with-Telegram-connection-Windows-App.git
 cd PolaRis
 dotnet restore
 dotnet build --configuration Release
